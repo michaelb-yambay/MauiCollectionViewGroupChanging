@@ -1,4 +1,6 @@
-Sample repo to illustrate an crash with MAUI-iOS when a CollectionView is on a non-visibile and gets group changes.  Scenario mimics logic our company uses in a real world application.
+Sample repo to illustrate an crash with MAUI-iOS when a CollectionView is on a non-visibile Page and has updates to the groups it's bound to.  Scenario mimics logic our company uses in a real world application.
+
+Currently using Microsoft.Maui.Controls v9.0.40.
 
 To reproduce error:
 1. Run application - should see a 'TODO' group with 'Mow Lawn', and a 'DONE' group with 2 other rows.
