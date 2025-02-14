@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiCollectionViewGroupChanging.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiCollectionViewGroupChanging.ViewModels"
+    Title="Main Page"
+    x:DataType="vm:MainViewModel">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <CollectionView IsGrouped="True" ItemsSource="{Binding GroupedWorkItems}">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate x:DataType="vm:WorkItemGroupViewModel">
+                    <Grid BackgroundColor="LightGray">
+                        <Label
+                            Margin="10"
+                            FontAttributes="Bold"
+                            Text="{Binding GroupDescription}"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:WorkItemViewModel">
+                    <Grid ColumnDefinitions="*,Auto,Auto">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ItemTapped" />
+                        </Grid.GestureRecognizers>
+                        <Label Margin="20,5" Text="{Binding Description}" />
+
+                        <!--
+                            Deliberately hiding the change status buttons on the main page
+                            to avoid any confusion with reproducing the issue being highlighted
+                            Set IsVisible back to true to test grouping changes when the CollectionView
+                            is visible
+                        -->
+                        <Grid x:Name="ChangeStatusButtonGrid" IsVisible="False">
+                            <HorizontalStackLayout Grid.Column="1" IsVisible="{Binding IsChangeStatusVisible}">
+                                <Button
+                                    Margin="2"
+                                    Command="{Binding ChangeStatusCommand}"
+                                    CommandParameter="TODO"
+                                    Text="TODO" />
+                                <Button
+                                    Margin="2"
+                                    Command="{Binding ChangeStatusCommand}"
+                                    CommandParameter="ACTIVE"
+                                    Text="ACTIVE" />
+                                <Button
+                                    Margin="2"
+                                    Command="{Binding ChangeStatusCommand}"
+                                    CommandParameter="DONE"
+                                    Text="DONE" />
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <Button
+                            Grid.Column="2"
+                            BackgroundColor="Blue"
+                            Clicked="Button_Clicked"
+                            Text="Details" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

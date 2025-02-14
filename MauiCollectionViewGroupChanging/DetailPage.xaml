@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiCollectionViewGroupChanging.DetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiCollectionViewGroupChanging.ViewModels"
+    Title="DetailPage"
+    x:DataType="vm:WorkItemViewModel">
+    <VerticalStackLayout Spacing="10">
+        <Label
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="Center"
+            Text="{Binding Status}" />
+
+        <Label
+            FontSize="16"
+            HorizontalOptions="Center"
+            Text="{Binding Description}" />
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsChangeStatusVisible}"
+            Spacing="5">
+
+            <Button
+                Command="{Binding ChangeStatusCommand}"
+                CommandParameter="TODO"
+                Text="TODO" />
+            <Button
+                Command="{Binding ChangeStatusCommand}"
+                CommandParameter="ACTIVE"
+                Text="ACTIVE" />
+            <Button
+                Command="{Binding ChangeStatusCommand}"
+                CommandParameter="DONE"
+                Text="DONE" />
+        </HorizontalStackLayout>
+
+
+    </VerticalStackLayout>
+</ContentPage>
